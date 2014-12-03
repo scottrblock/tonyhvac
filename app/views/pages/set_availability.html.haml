@@ -1,0 +1,30 @@
+.row
+  .col-md-12
+    %h3
+      Set Availability
+    %p
+      - current_contractor.availibilities.each do |a|
+        .panel.panel-default
+          .panel-heading
+            = a.day
+          .panel-body
+            = form_for ([current_contractor, a]), :remote => :true, :html => {:class => "form-horizontal"} do |f|
+              .form-group
+                = f.label :start_time, :class => "col-sm-3" do
+                  Start Time
+                .col-sm-9
+                  - if a.start_time.nil?
+                    = f.text_field :start_time, :as => :time_picker, :class => "timepicker"
+                  - else
+                    = f.text_field :start_time, :as => :time_picker, :class => "timepicker", :value => a.start_time.strftime("%l:%M %p")
+              .form-group
+                = f.label :end_time, :class => "col-sm-3" do
+                  End Time
+                .col-sm-9
+                  - if a.end_time.nil?
+                    = f.text_field :end_time, :as => :time_picker, :class => "timepicker"
+                  - else
+                    = f.text_field :end_time, :as => :time_picker, :class => "timepicker", :value => a.end_time.strftime("%l:%M %p")
+              .actions.form-group
+                .col-md-12
+                  = f.button "Save", :class => "btn btn-success", :data => {:disable_with => "<i class='fa fa-spinner fa-spin'></i> Saving...".html_safe}

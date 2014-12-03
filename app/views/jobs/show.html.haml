@@ -1,0 +1,48 @@
+.row
+  .col-md-12
+    %h3.title
+      Job Information
+    .panel.panel-default
+      .panel-heading
+        .row
+          .col-md-12
+            %h3
+              = @job.jobTitle
+        - if !@job.job_date.nil?
+          .row
+            .col-md-12
+              %h5
+                = @job.job_date.to_formatted_s(:custom_long_ordinal)
+      .panel-body
+        %p
+          = @job.jobDescription
+        %p
+          %strong
+            = @job.jobType
+        - if @job.jobUrgency
+          .label.label-warning
+            Urgent
+
+
+- c = @job.customer
+.row
+  .col-md-12
+    %h3.title
+      Customer Information
+    .panel.panel-default
+      .panel-heading
+        %h4
+          = "#{c.custFirstName} #{c.custMiddleInitial} #{c.custLastName}"
+      .panel-body
+        .row
+          .col-md-3
+            %strong
+              Email
+          .col-md-9
+            = c.email
+        .row
+          .col-md-3
+            %strong
+              Location
+          .col-md-9
+            = "#{c.custStreetAddress}, #{c.custCity} #{c.custState} #{c.custZip}"

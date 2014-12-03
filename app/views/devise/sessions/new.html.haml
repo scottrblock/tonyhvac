@@ -1,0 +1,18 @@
+%h2
+  = "#{resource_name.to_s.titleize} Login"
+= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:class => "form"}) do |f|
+  
+  .row
+    .col-md-6
+      .form-group
+        = f.label :email
+        = f.email_field :email, autofocus: true, :class => "form-control"
+      .form-group
+        = f.label :password
+        = f.password_field :password, autocomplete: "off", :class => "form-control"
+      - if devise_mapping.rememberable?
+        %div.form-group
+          = f.check_box :remember_me
+          = f.label :remember_me
+  %div= f.submit "Log in", :class => "btn btn-primary"
+= render "devise/shared/links"

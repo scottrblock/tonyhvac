@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  jobTitle: MyString
+  jobDescription: MyText
+  jobType: MyString
+  jobCost: 9.99
+  jobQuotedPrice: 9.99
+  jobUrgency: false
+
+two:
+  jobTitle: MyString
+  jobDescription: MyText
+  jobType: MyString
+  jobCost: 9.99
+  jobQuotedPrice: 9.99
+  jobUrgency: false

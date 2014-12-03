@@ -1,0 +1,48 @@
+.row
+  .col-md-12
+    %h3
+      Contractors
+    %p
+      - if resource_type == "admins"
+        - Contractor.all.each do |c|
+          .panel.panel-default
+            .panel-heading
+              %h4
+                = "#{c.subFirstName} #{c.subMiddleInitial} #{c.subLastName}"
+            .panel-body
+              .row
+                .col-md-3
+                  %strong
+                    Email
+                .col-md-9
+                  = c.email
+              .row
+                .col-md-3
+                  %strong
+                    Type
+                .col-md-9
+                  = c.subType
+              .row
+                .col-md-3
+                  %strong
+                    Location
+                .col-md-9
+                  = "#{c.subStreetAddress}, #{c.subCity} #{c.subState} #{c.subZip}"
+              .row
+                .col-md-12
+                  %h5
+                    Availibility
+                  - c.availibilities.each do |a|
+                    .row
+                      .col-md-3
+                        %strong
+                          = a.day
+                      .col-md-9
+                        - if a.start_time.nil? && a.end_time.nil?
+                          Unavailable
+                        - else
+                          = "#{a.start_time.strftime("%l:%M %p")} - #{a.end_time.strftime("%l:%M %p")}"
+
+      - else
+        .alert.alert-danger
+          You are not authorized to view this page

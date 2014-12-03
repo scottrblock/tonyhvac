@@ -1,0 +1,74 @@
+!!!
+%html
+  %head
+    %title TonyHVAC
+    %link{:href => "//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css", :rel => "stylesheet"}/
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false
+    = csrf_meta_tags
+  %body
+    .navbar.navbar-inverse.navbar-fixed-top{:role => "navigation"}
+      .container
+        .navbar-header
+          %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand{:href => "/"} Tony's HVAC
+        .navbar-collapse.collapse
+          %ul.nav.navbar-nav
+            - if signed_in? && resource_type == "customers"
+              %li
+                %a{:href => "/jobs/new"} New Job
+            - if signed_in? && resource_type == "contractors"
+              %li
+                %a{:href => "/set_availability"} Set Availibility
+              %li
+                %a{:href => "/update_resource"} Update Profile
+            - if signed_in? && resource_type == "admins"
+              %li
+                %a{:href => "/show_contractors"} Contractor Info
+              %li
+                %a{:href => "/update_resource"} Update Profile
+          %ul.nav.navbar-nav.navbar-right
+            - if signed_in?
+              %li
+                = link_to "/#{resource_type}/sign_out", :method => :delete do
+                  Sign Out
+            - else
+              %li.dropdown
+                %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                  Login
+                  %span.caret
+                %ul.dropdown-menu{:role => "menu"}
+                  %li
+                    %a{:href => "/customers/sign_in"} Customer Login
+                  %li
+                    %a{:href => "/contractors/sign_in"} Contractor Login
+                  %li
+                    %a{:href => "/admins/sign_in"} Admin Login
+              %li.dropdown
+                %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                  Sign Up
+                  %span.caret
+                %ul.dropdown-menu{:role => "menu"}
+                  %li
+                    %a{:href => "/customers/sign_up"} Customer Signup
+                  %li
+                    %a{:href => "/contractors/sign_up"} Contractor Signup
+                  %li
+                    %a{:href => "/admins/sign_up"} Admin Signup
+    .container
+      .row
+        .flashes.col-sm-12
+          - flash.each do |key, value|
+            %div{:class => "one-flash alert alert-#{key}"}
+              = value
+        .col-sm-12
+          = yield
+    .container
+      %footer
+        %hr/
+        %p © Tony's HVAC 2014
+    = javascript_include_tag 'application', 'data-turbolinks-track' => false
+    %script{:src => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"}

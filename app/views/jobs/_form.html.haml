@@ -1,0 +1,47 @@
+.panel.panel-default
+  .panel-body
+    .row
+      .col-sm-12
+        = form_for ([current_customer, @job]), :html => {:class => "form-horizontal"} do |f|
+          - if @job.errors.any?
+            #error_explanation
+              %h2= "#{pluralize(@job.errors.count, "error")} prohibited this job from being saved:"
+              %ul
+                - @job.errors.full_messages.each do |msg|
+                  %li= msg
+          .row
+            .col-md-6
+              .form-group
+                = f.label :jobTitle, :class => "col-sm-3" do
+                  Name
+                .col-sm-9
+                  = f.text_field :jobTitle, :class => "form-control"
+              .form-group
+                = f.label :jobDescription, :class => "col-sm-3" do
+                  Description
+                .col-sm-9
+                  = f.text_area :jobDescription
+              .form-group
+                = f.label :jobType, :class => "col-sm-3" do
+                  Category
+                .col-sm-9
+                  = f.select :jobType, [["Option 1", "Option 1"], ["Option 2", "Option 2"], ["Option 3", "Option 3"]], {:prompt => "Select a Category"}, {:class => "form-control"}
+              .form-group
+                = f.label :job_date, :class => "col-sm-3" do
+                  Date
+                .col-sm-9
+                  = f.text_field :job_date, :as => :datetime_picker, :class => "datetimepicker"
+              .form-group
+                .col-sm-3
+                  %label
+                    Urgency
+                .col-sm-9
+                  .checkbox
+                    %label
+                      = f.check_box :jobUrgency
+                      This job is urgent
+
+              
+              .actions.form-group
+                .col-md-12
+                  = f.submit 'Submit', :class => "btn btn-primary"

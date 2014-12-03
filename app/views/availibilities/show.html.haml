@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Contractor:
+  = @availibility.contractor_id
+%p
+  %b Day:
+  = @availibility.day
+%p
+  %b Start time:
+  = @availibility.start_time
+%p
+  %b End time:
+  = @availibility.end_time
+
+= link_to 'Edit', edit_availibility_path(@availibility)
+\|
+= link_to 'Back', availibilities_path

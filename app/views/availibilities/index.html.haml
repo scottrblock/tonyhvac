@@ -1,0 +1,25 @@
+%h1 Listing availibilities
+
+%table
+  %tr
+    %th Contractor
+    %th Day
+    %th Start time
+    %th End time
+    %th
+    %th
+    %th
+
+  - @availibilities.each do |availibility|
+    %tr
+      %td= availibility.contractor_id
+      %td= availibility.day
+      %td= availibility.start_time
+      %td= availibility.end_time
+      %td= link_to 'Show', availibility
+      %td= link_to 'Edit', edit_availibility_path(availibility)
+      %td= link_to 'Destroy', availibility, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Availibility', new_availibility_path

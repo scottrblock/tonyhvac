@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  contractor_id: 1
+  day: MyString
+  start_time: 2014-12-02 01:34:01
+  end_time: 2014-12-02 01:34:01
+
+two:
+  contractor_id: 1
+  day: MyString
+  start_time: 2014-12-02 01:34:01
+  end_time: 2014-12-02 01:34:01

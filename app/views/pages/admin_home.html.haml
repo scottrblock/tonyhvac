@@ -1,0 +1,35 @@
+.row
+  .col-md-12
+    %p
+      %h2.title
+        Jobs
+.row
+  .col-md-12
+    - if Job.order("updated_at desc").length > 0
+      - Job.order("updated_at desc").each do |j|
+        .panel.panel-default
+          .panel-heading
+            .row
+              .col-md-9
+                %h3
+                  = j.jobTitle
+              .col-md-3
+                .text-right.job-options
+                  = link_to("<i class='fa fa-times-circle-o'></i>".html_safe, job_path(j), :method => :delete, data: {confirm: 'Are you sure?'})
+                  .choose-contractor
+                    = best_in_place j, :contractor_id, :type => :select, :collection => contractor_hash, :place_holder => "Choose a contractor", :inner_class => "form-control"
+
+            - if !j.job_date.nil?
+              .row
+                .col-md-12
+                  %h5
+                    = j.job_date.to_formatted_s(:custom_long_ordinal)
+          .panel-body
+            %p
+              = j.jobDescription
+            %p
+              %strong
+                = j.jobType
+            - if j.jobUrgency
+              .label.label-warning
+                Urgent
