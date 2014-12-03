@@ -1,5 +1,3 @@
-require 'simple_form' 
-
 class DatePickerInput < SimpleForm::Inputs::StringInput
   def input(wrapper_options)
     value = object.send(attribute_name) if object.respond_to? attribute_name
