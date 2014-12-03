@@ -1,7 +1,8 @@
 $(document).ready(function(){
   $('.datetimepicker').datetimepicker({
     pickTime: true,
-    sideBySide: true
+    sideBySide: true,
+    minuteStepping: 15
   });
 
   $('.timepicker').datetimepicker({
@@ -24,6 +25,6 @@ $(document).ready(function(){
       events: jobs_url
     });
   }
-  
+
 
 })
