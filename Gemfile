@@ -51,5 +51,6 @@ gem "haml-rails"
 gem "devise"
 gem 'momentjs-rails', :github => 'derekprior/momentjs-rails'
 gem 'fullcalendar-rails'
+gem 'simple_form'
 gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
 gem "best_in_place"
