@@ -1,2 +1,61 @@
 .row
   .col-md-12
+    %p
+      .well
+        = link_to "/jobs/new", :class => "btn btn-primary btn-lg" do
+          Click here to create a new job!
+    - if @active_jobs.length > 0
+      %p
+        %h4
+          Active Jobs
+        - @active_jobs.each do |j|
+          .panel.panel-default
+            .panel-heading
+              .row
+                .col-md-9
+                  %h3
+                    = j.jobTitle
+
+              - if !j.job_date.nil?
+                .row
+                  .col-md-12
+                    %h5
+                      = j.job_date.to_formatted_s(:custom_long_ordinal)
+    - if @pending_jobs.length > 0
+      %p
+        %h4
+          Pending Jobs
+        - @pending_jobs.each do |j|
+          .panel.panel-default
+            .panel-heading
+              .row
+                .col-md-9
+                  %h3
+                    = j.jobTitle
+
+              - if !j.job_date.nil?
+                .row
+                  .col-md-12
+                    %h5
+                      = j.job_date.to_formatted_s(:custom_long_ordinal)
+    - if @completed_jobs.length > 0
+      %p
+        %h4
+          Completed Jobs
+        - @completed_jobs.each do |j|
+          .panel.panel-default
+            .panel-heading
+              .row
+                .col-md-9
+                  %h3
+                    = j.jobTitle
+
+              - if !j.job_date.nil?
+                .row
+                  .col-md-12
+                    %h5
+                      Started on
+                      = j.job_date.to_formatted_s(:custom_long_ordinal)
+                    %h5
+                      Ended on
+                      = j.jobEndDate.to_formatted_s(:custom_long_ordinal)

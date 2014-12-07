@@ -1,29 +1,31 @@
-%h1 Listing jobs
+- if resource_type == "admins"
 
-%table
-  %tr
-    %th Jobtitle
-    %th Jobdescription
-    %th Jobtype
-    %th Jobcost
-    %th Jobquotedprice
-    %th Joburgency
-    %th
-    %th
-    %th
+  %h1 Listing jobs
 
-  - @jobs.each do |job|
+  %table
     %tr
-      %td= job.jobTitle
-      %td= job.jobDescription
-      %td= job.jobType
-      %td= job.jobCost
-      %td= job.jobQuotedPrice
-      %td= job.jobUrgency
-      %td= link_to 'Show', job
-      %td= link_to 'Edit', edit_job_path(job)
-      %td= link_to 'Destroy', job, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %th Jobtitle
+      %th Jobdescription
+      %th Jobtype
+      %th Jobcost
+      %th Jobquotedprice
+      %th Joburgency
+      %th
+      %th
+      %th
 
-%br
+    - @jobs.each do |job|
+      %tr
+        %td= job.jobTitle
+        %td= job.jobDescription
+        %td= job.jobType
+        %td= job.jobCost
+        %td= job.jobQuotedPrice
+        %td= job.jobUrgency
+        %td= link_to 'Show', job
+        %td= link_to 'Edit', edit_job_path(job)
+        %td= link_to 'Destroy', job, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-= link_to 'New Job', new_job_path
+  %br
+
+  = link_to 'New Job', new_job_path

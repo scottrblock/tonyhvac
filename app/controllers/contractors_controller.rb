@@ -42,7 +42,12 @@ class ContractorsController < ApplicationController
   def update
     respond_to do |format|
       if @contractor.update(contractor_params)
-        format.html { redirect_to "/update_resource", notice: 'Profile was successfully updated.' }
+        if (defined? admin_signed_in?) && admin_signed_in?
+          format.html { redirect_to "/show_contractors", notice: 'Profile was successfully updated.' }
+        else
+          format.html { redirect_to "/update_resource", notice: 'Profile was successfully updated.' }
+        end
+
         format.json { render :show, status: :ok, location: @contractor }
       else
         format.html { render :edit }
@@ -56,7 +61,7 @@ class ContractorsController < ApplicationController
   def destroy
     @contractor.destroy
     respond_to do |format|
-      format.html { redirect_to contractors_url, notice: 'Contractor was successfully destroyed.' }
+      format.html { redirect_to '/show_contractors', notice: 'Contractor was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

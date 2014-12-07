@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   get '/set_availability' => "pages#set_availability"
   get '/show_contractors' => "pages#show_contractors"
   get '/update_resource' => "pages#update_resource"
+  get '/jobs_sorted_by_date' => "pages#jobs_sorted_by_date"
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

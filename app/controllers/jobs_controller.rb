@@ -59,13 +59,22 @@ class JobsController < ApplicationController
   # PATCH/PUT /jobs/1.json
   def update
     respond_to do |format|
-      if @job.update(job_params)
-        format.html { redirect_to @job, notice: 'Job was successfully updated.' }
-        format.json { render :show, status: :ok, location: @job }
+      if(params.has_key?(:end_job))
+        @job.jobEndDate = Time.now
+        @job.save!
+        format.html { redirect_to @job, notice: 'Job was successfully ended.' }
+
       else
-        format.html { render :edit }
-        format.json { render json: @job.errors, status: :unprocessable_entity }
+        if @job.update(job_params)
+          format.html { redirect_to @job, notice: 'Job was successfully updated.' }
+          format.json { render :show, status: :ok, location: @job }
+        else
+          format.html { render :edit }
+          format.json { render json: @job.errors, status: :unprocessable_entity }
+        end
       end
+
+      
     end
   end
 
@@ -87,6 +96,6 @@ class JobsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_params
-      params.require(:job).permit(:jobTitle, :jobDescription, :jobType, :jobCost, :jobQuotedPrice, :jobUrgency, :job_date, :customer_id, :contractor_id)
+      params.require(:job).permit(:jobTitle, :jobDescription, :jobType, :jobCost, :jobQuotedPrice, :jobUrgency, :job_date, :customer_id, :contractor_id, :jobEndDate)
     end
 end

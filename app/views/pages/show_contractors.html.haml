@@ -7,8 +7,14 @@
         - Contractor.all.each do |c|
           .panel.panel-default
             .panel-heading
-              %h4
-                = "#{c.subFirstName} #{c.subMiddleInitial} #{c.subLastName}"
+              .row
+                .col-md-9
+                  %h4
+                    = "#{c.subFirstName} #{c.subMiddleInitial} #{c.subLastName}"
+                .col-md-3.contractor-links.text-right
+                  = link_to("<i class='fa fa-times-circle-o'></i>".html_safe, contractor_path(c), :method => :delete, data: {confirm: 'Are you sure?'})
+                  = link_to "/contractors/#{c.id}/edit" do
+                    %i.fa.fa-edit
             .panel-body
               .row
                 .col-md-3

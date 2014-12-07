@@ -9,10 +9,10 @@
       Sort By:
       .btn-group
         
-        %a{:href => "/", :class => "btn btn-info active"}
+        %a{:href => "/", :class => "btn btn-info"}
           Time Last Updated
-        %a{:href => "/jobs_sorted_by_date", :class => "btn btn-info"}
+        %a{:href => "/jobs_sorted_by_date", :class => "btn btn-info active"}
           Date of Job
-    - if Job.order("updated_at desc").length > 0
-      - Job.order("updated_at desc").each do |j|
+    - if Job.order("job_date asc").length > 0
+      - Job.order("job_date asc").each do |j|
         = render :partial => "/jobs/admin_job", :locals => {:j => j}

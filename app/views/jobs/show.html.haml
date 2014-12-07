@@ -22,6 +22,16 @@
         - if @job.jobUrgency
           .label.label-warning
             Urgent
+        %p
+          - if @job.jobEndDate.nil?
+            = form_for (@job), :html => {:class => "form-horizontal"} do |f|
+              = hidden_field_tag 'end_job', true
+              = f.submit 'End Job', :class => "btn btn-primary"
+          - else
+            .alert.alert-info
+              %p
+                Job ended on
+                = @job.jobEndDate.to_formatted_s(:custom_long_ordinal)
 
 
 - c = @job.customer
