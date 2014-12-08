@@ -54,3 +54,4 @@ gem 'fullcalendar-rails'
 gem 'simple_form'
 gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
 gem "best_in_place"
+gem "rails_12factor"
