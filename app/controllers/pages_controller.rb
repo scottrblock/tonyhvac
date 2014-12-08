@@ -6,7 +6,7 @@ class PagesController < ApplicationController
   def customer_home
     @active_jobs = current_customer.jobs.where("contractor_id IS NOT NULL").order("updated_at desc")
     @pending_jobs = current_customer.jobs.where(:contractor_id => nil).order("updated_at desc")
-    @completed_jobs = current_customer.jobs.where("jobEndDate IS NOT NULL").order("updated_at desc")
+    @completed_jobs = current_customer.jobs.where('"jobEndDate" IS NOT NULL').order("updated_at desc")
   end
 
   def contractor_home
