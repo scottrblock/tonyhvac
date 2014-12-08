@@ -3,12 +3,16 @@
     .row
       .col-md-9
         %h3
-          = j.jobTitle
+          = link_to j do 
+            = j.jobTitle
       .col-md-3
         .text-right.job-options
           = link_to("<i class='fa fa-times-circle-o'></i>".html_safe, job_path(j), :method => :delete, data: {confirm: 'Are you sure?'})
-          .choose-contractor
-            = best_in_place j, :contractor_id, :type => :select, :collection => contractor_hash, :place_holder => "Choose a contractor", :inner_class => "form-control"
+          - if j.jobEndDate.nil?
+            .choose-contractor
+              = best_in_place j, :contractor_id, :type => :select, :collection => contractor_hash, :place_holder => "Choose a contractor", :inner_class => "form-control"
+          - else
+            = "#{j.contractor.subFirstName} #{j.contractor.subLastName}"
 
     - if !j.job_date.nil?
       .row
@@ -24,6 +28,9 @@
     - if j.jobUrgency
       .label.label-warning
         Urgent
+    - if !j.jobEndDate.nil?
+      .label.label-info
+        = "Completed #{j.jobEndDate.to_formatted_s(:custom_long_ordinal)}"
     %p
       %h5
         Customer Information
