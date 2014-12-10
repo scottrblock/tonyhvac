@@ -25,7 +25,7 @@
                 = f.label :jobType, :class => "col-sm-3" do
                   Category
                 .col-sm-9
-                  = f.select :jobType, [["Option 1", "Option 1"], ["Option 2", "Option 2"], ["Option 3", "Option 3"]], {:prompt => "Select a Category"}, {:class => "form-control", :required => true}
+                  = f.select :jobType, [["HVAC", "HVAC"], ["Electrical", "Electrical"], ["Plumbing", "Plumbing"]], {:prompt => "Select a Category"}, {:class => "form-control", :required => true}
               .form-group
                 = f.label :job_date, :class => "col-sm-3" do
                   Date

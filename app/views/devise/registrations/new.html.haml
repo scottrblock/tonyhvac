@@ -91,13 +91,13 @@
               .form-group
                 = f.label :subState do
                   State
-                = f.select :subState, options_for_select(us_states), :class => "form-control", :prompt => "Choose a state", :required => true
+                = select_tag :subState, options_for_select(us_states), :class => "form-control", :prompt => "Choose a state", :required => true
           .row
             .col-md-5
               .form-group
                 = f.label :subType do
                   Type
-                  = f.select :subType, [["Option 1", "Option 1"], ["Option 2", "Option 2"], ["Option 3", "Option 3"]], {:prompt => "Select a Type"}, {:class => "form-control", :required => true}
+                  = f.select :subType, [["HVAC", "HVAC"], ["Electrical", "Electrical"], ["Plumbing", "Plumbing"]], {:prompt => "Select a Type"}, {:class => "form-control", :required => true}
   
 
  
