@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :items
+
+  resources :item_details
+
   resources :availibilities
   resources :jobs
 

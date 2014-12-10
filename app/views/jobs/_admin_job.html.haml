@@ -12,7 +12,8 @@
             .choose-contractor
               = best_in_place j, :contractor_id, :type => :select, :collection => contractor_hash, :place_holder => "Choose a contractor", :inner_class => "form-control"
           - else
-            = "#{j.contractor.subFirstName} #{j.contractor.subLastName}"
+            %div
+              = "#{j.contractor.subFirstName} #{j.contractor.subLastName}"
 
     - if !j.job_date.nil?
       .row
@@ -26,11 +27,17 @@
       %strong
         = j.jobType
     - if j.jobUrgency
-      .label.label-warning
-        Urgent
+      .u-bt10
+        .label.label-warning
+          Urgent
     - if !j.jobEndDate.nil?
-      .label.label-info
-        = "Completed #{j.jobEndDate.to_formatted_s(:custom_long_ordinal)}"
+      .u-bt10
+        .label.label-info
+          = "Completed #{j.jobEndDate.to_formatted_s(:custom_long_ordinal)}"
+    - if j.invoice_status != "unsent"
+      .u-bt10
+        .label.label-info
+          = "Invoice #{j.invoice_status.titleize}"
     %p
       %h5
         Customer Information

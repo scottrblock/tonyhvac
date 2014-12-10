@@ -1,0 +1,13 @@
+= simple_form_for(@item, html: {class: 'form-horizontal' }) do |f|
+  = f.error_notification
+
+  .form-inputs
+    .row
+      .col-sm-6
+        = f.input :title, input_html: {:required => true}
+    .row
+      .col-sm-6
+        = f.input :price, input_html: {:required => true}
+
+  .form-actions
+    = f.button :submit, :class => "btn btn-success"

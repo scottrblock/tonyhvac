@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141207003051) do
+ActiveRecord::Schema.define(version: 20141210100707) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -91,12 +91,26 @@ ActiveRecord::Schema.define(version: 20141207003051) do
   add_index "customers", ["email"], name: "index_customers_on_email", unique: true
   add_index "customers", ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
 
+  create_table "item_details", force: true do |t|
+    t.string   "description"
+    t.integer  "item_id"
+    t.integer  "job_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "quantity"
+  end
+
+  create_table "items", force: true do |t|
+    t.string   "title"
+    t.decimal  "price"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "jobs", force: true do |t|
     t.string   "jobTitle"
     t.text     "jobDescription"
     t.string   "jobType"
-    t.decimal  "jobCost"
-    t.decimal  "jobQuotedPrice"
     t.boolean  "jobUrgency"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -104,6 +118,11 @@ ActiveRecord::Schema.define(version: 20141207003051) do
     t.datetime "job_date"
     t.integer  "contractor_id"
     t.datetime "jobEndDate"
+    t.decimal  "price"
+    t.string   "invoice_status",    default: "unsent"
+    t.datetime "invoice_sent_time"
+    t.string   "stripe_token"
+    t.datetime "invoice_paid_time"
   end
 
   add_index "jobs", ["customer_id"], name: "index_jobs_on_customer_id"

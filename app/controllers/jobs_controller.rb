@@ -23,6 +23,7 @@ class JobsController < ApplicationController
   # GET /jobs/1
   # GET /jobs/1.json
   def show
+      @item_detail = @job.item_details.build
   end
 
   # GET /jobs/new
@@ -38,7 +39,7 @@ class JobsController < ApplicationController
   # POST /jobs.json
   def create
     my_job_params = job_params
-   my_job_params[:job_date] = DateTime.strptime(job_params[:job_date],
+    my_job_params[:job_date] = DateTime.strptime(job_params[:job_date],
                                                    '%m/%d/%Y %l:%M %p')
     @job = Customer.find(params[:customer_id]).jobs.new(my_job_params)
     #    @post = @postable.posts.new(params[:post])
@@ -58,16 +59,28 @@ class JobsController < ApplicationController
   # PATCH/PUT /jobs/1
   # PATCH/PUT /jobs/1.json
   def update
+
+
     respond_to do |format|
       if(params.has_key?(:end_job))
         @job.jobEndDate = Time.now
         @job.save!
         format.html { redirect_to @job, notice: 'Job was successfully ended.' }
-
+      elsif(params.has_key?(:stripeToken))
+        @job.stripe_token = params[:stripeToken]
+        @job.invoice_status = "paid"
+        @job.invoice_paid_time = DateTime.now
+        @job.save!
+        format.html { redirect_to @job, notice: 'Invoice was successfully paid.' }
       else
         if @job.update(job_params)
-          format.html { redirect_to @job, notice: 'Job was successfully updated.' }
+          if @job.invoice_status == "sent"
+            UserMailer.send_invoice(@job.customer, @job).deliver
+          end
+
+          format.html { redirect_to @job, notice: 'Invoice successfully sent.' }
           format.json { render :show, status: :ok, location: @job }
+          format.js { }
         else
           format.html { render :edit }
           format.json { render json: @job.errors, status: :unprocessable_entity }
@@ -96,6 +109,6 @@ class JobsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_params
-      params.require(:job).permit(:jobTitle, :jobDescription, :jobType, :jobCost, :jobQuotedPrice, :jobUrgency, :job_date, :customer_id, :contractor_id, :jobEndDate)
+      params.require(:job).permit(:jobTitle, :jobDescription, :jobType, :jobUrgency, :job_date, :customer_id, :contractor_id, :jobEndDate, :price, :invoice_status, :invoice_sent_time,  :stripeToken, :stripeTokenType, :stripeEmail, :invoice_paid_time)
     end
 end

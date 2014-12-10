@@ -1,0 +1,60 @@
+- if j.item_details.length > 0
+  .u-mt10
+    %h4.title
+      Items
+    %table.table-striped.table
+      %tr
+        %th Title
+        %th Quantity
+        %th Price
+        %th Description
+        %th
+
+      - j.item_details.each do |i|
+        - if !i.item.nil?
+          %tr
+            %td= i.item.title
+            %td= i.quantity
+            %td= number_to_currency(i.item.price * i.quantity)
+            %td= i.description
+      %tr
+        %td
+          Labor Charge
+        %td
+        %td
+          %strong
+            %em
+              = number_to_currency j.price
+        %td
+      %tr.active
+        %td
+          %strong
+            - if resource_type != "customers"
+              Total
+            - else
+              Pre-Tax Total 
+        %td
+        %td
+          %strong
+            %em
+              = number_to_currency j.cost
+        %td
+      - if resource_type == "customers"
+        %tr
+          %td
+            6% Tax
+          %td
+          %td
+            %em
+              = number_to_currency j.tax
+          %td
+        %tr.active
+          %td
+            %strong
+              Total Cost
+          %td
+          %td
+            %em
+              %strong
+                = number_to_currency j.post_tax_cost
+          %td

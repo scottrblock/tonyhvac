@@ -4,12 +4,18 @@ class PagesController < ApplicationController
   end
 
   def customer_home
-    @active_jobs = current_customer.jobs.where("contractor_id IS NOT NULL").order("updated_at desc")
+    @active_jobs = current_customer.jobs.where('contractor_id IS NOT NULL  AND "jobEndDate" IS NULL').order("updated_at desc")
     @pending_jobs = current_customer.jobs.where(:contractor_id => nil).order("updated_at desc")
     @completed_jobs = current_customer.jobs.where('"jobEndDate" IS NOT NULL').order("updated_at desc")
   end
 
   def contractor_home
+  end
+
+  def admin_home
+    @active_jobs = Job.where('contractor_id IS NOT NULL AND "jobEndDate" IS NULL').order("updated_at desc")
+    @pending_jobs = Job.where(:contractor_id => nil).order("updated_at desc")
+    @completed_jobs = Job.where('"jobEndDate" IS NOT NULL').order("updated_at desc")
   end
 
   def set_availability

@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Description:
+  = @item_detail.description
+%p
+  %b Item:
+  = @item_detail.item_id
+%p
+  %b Job:
+  = @item_detail.job_id
+
+= link_to 'Edit', edit_item_detail_path(@item_detail)
+\|
+= link_to 'Back', item_details_path

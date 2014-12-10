@@ -1,58 +1,127 @@
-.row
-  .col-md-12
-    %h3.title
-      Job Information
-    .panel.panel-default
-      .panel-heading
-        .row
-          .col-md-12
-            %h3
-              = @job.jobTitle
-        - if !@job.job_date.nil?
+- if current_resource != nil 
+  .row
+    .col-md-12
+      - if resource_type != "customers"
+        %h3.title
+          Job Information
+      - else
+        %h1.title
+          = "Invoice for #{@job.jobTitle}"
+        .u-bt10
+          - if @job.invoice_status == "sent"
+            .label.label-warning
+              = "Invoice Sent on #{@job.invoice_sent_time.to_formatted_s(:custom_long_ordinal)}"
+      - if resource_type == "admins"
+        .u-mt10.u-bt10
+          .row
+            - if @job.invoice_status == "unsent" && !@job.jobEndDate.nil?
+              .col-md-2
+                %button.btn.btn-success.btn-sm#send-invoice-btn
+                  Send Invoice
+              .col-md-10
+                .u-bt10.send-invoice-wrap
+                  = simple_form_for(@job) do |f|
+                    .form-inputs
+                      .row
+                        .col-md-4
+                          = f.input :price, label: "Additional Markup Cost", input_html: {:required => true}
+                          = f.input :invoice_status, as: :hidden, input_html: { value: "sent"}
+                          = f.input :invoice_sent_time, as: :hidden, input_html: { value: "#{DateTime.now}"}
+
+                    .form-actions
+                      .row
+                        .col-md-4
+                          .pull-right
+                            = f.button :button, :class => "btn btn-default", :data => {:disable_with => "<i class='fa fa-spinner fa-spin'></i> Creating...".html_safe} do
+                              Create Invoice
+
+              - if @job.invoice_status == "sent"
+                .col-md-6
+                  .alert.alert-info
+                    = "Invoice sent to #{@job.customer.custFirstName} #{@job.customer.custLastName} at #{@job.invoice_sent_time.to_formatted_s(:custom_long_ordinal)}"
+                  .alert.alert-warning
+                    = "Markup cost for job is #{number_to_currency(@job.price)}"
+
+
+      .panel.panel-default
+        .panel-heading
           .row
             .col-md-12
-              %h5
-                = @job.job_date.to_formatted_s(:custom_long_ordinal)
-      .panel-body
-        %p
-          = @job.jobDescription
-        %p
-          %strong
-            = @job.jobType
-        - if @job.jobUrgency
-          .label.label-warning
-            Urgent
-        %p
-          - if @job.jobEndDate.nil?
-            = form_for (@job), :html => {:class => "form-horizontal"} do |f|
-              = hidden_field_tag 'end_job', true
-              = f.submit 'End Job', :class => "btn btn-primary"
-          - else
-            .alert.alert-info
-              %p
-                Job ended on
-                = @job.jobEndDate.to_formatted_s(:custom_long_ordinal)
+              %h3
+                = @job.jobTitle
+          - if !@job.job_date.nil?
+            .row
+              .col-md-6
+                .alert.alert-info
+                  Job Started
+                  = @job.job_date.to_formatted_s(:custom_long_ordinal)
+        .panel-body
+          .u-mt10
+            = @job.jobDescription
+          .u-mt10
+            .label.label-info
+              = @job.jobType
+          - if @job.jobUrgency
+            .u-mt10
+              .label.label-warning
+                Urgent
+          #job-table
+            = render :partial => "jobs/item_table", :locals => {:j => @job}
+
+          .u-mt30
+            %hr
+            .row
+              .col-md-7
+                - if @job.invoice_status == "unsent"
+                  %button#add-item-detail.btn.btn-success.btn-sm
+                    Add Item
+                  .row
+                    .col-md-12
+                      = render :partial => "/item_details/form"
+              .col-md-5
+                .pull-right
+                  - if @job.jobEndDate.nil?
+                    = form_for (@job), :html => {:class => "form-horizontal"} do |f|
+                      = hidden_field_tag 'end_job', true
+                      = f.submit 'End Job', :class => "btn btn-primary"
+                  - else
+                    .alert.alert-info
+                      %p
+                        Job ended on
+                        = @job.jobEndDate.to_formatted_s(:custom_long_ordinal)
+                    - if resource_type == "customers"
+                      .u-mt10.pull-right
+                        - if @job.invoice_status == "sent"
+
+                          = simple_form_for(@job) do |f|
+                            %script{:src => "https://checkout.stripe.com/checkout.js", :class => "stripe-button", :data => {:key => "pk_test_xCMW2QuvR9DvTHDQ7fQnpCyU", :name => "TonyHVAC", :description => "#{@job.jobTitle}", :amount => "#{@job.cents}", :label => "Pay #{number_to_currency @job.post_tax_cost} Invoice", :email => "#{@job.customer.email}"}}
+                    - if @job.invoice_status == "paid"
+                      .alert.alert-success
+                        = "Invoice paid at #{@job.invoice_paid_time.to_formatted_s(:custom_long_ordinal)}"
 
 
-- c = @job.customer
-.row
-  .col-md-12
-    %h3.title
-      Customer Information
-    .panel.panel-default
-      .panel-heading
-        %h4
-          = "#{c.custFirstName} #{c.custMiddleInitial} #{c.custLastName}"
-      .panel-body
-        .row
-          .col-md-3
-            %strong
-              Email
-          .col-md-9
-            = c.email
-        .row
-          .col-md-3
-            %strong
-              Location
-          .col-md-9
-            = "#{c.custStreetAddress}, #{c.custCity} #{c.custState} #{c.custZip}"
+  - c = @job.customer
+  .row
+    .col-md-12
+      %h3.title
+        Customer Information
+      .panel.panel-default
+        .panel-heading
+          %h4
+            = "#{c.custFirstName} #{c.custMiddleInitial} #{c.custLastName}"
+        .panel-body
+          .row
+            .col-md-3
+              %strong
+                Email
+            .col-md-9
+              = c.email
+          .row
+            .col-md-3
+              %strong
+                Location
+            .col-md-9
+              = "#{c.custStreetAddress}, #{c.custCity} #{c.custState} #{c.custZip}"
+- else
+  .alert.alert-danger
+    Please sign in before viewing this page.

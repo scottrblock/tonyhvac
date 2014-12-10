@@ -1,5 +1,74 @@
 .row
   .col-md-12
+    %h2.title
+      Dashboard
+.row
+  .col-md-4
+    .panel.box
+      %span.fa-stack.fa-3x
+        %i.fa.fa-circle.fa-stack-2x
+        %i.fa.fa-users.fa-stack-1x.fa-inverse
+      .box-info
+        %h3
+          = "#{Customer.all.length}"
+        .text-muted
+          Customers
+  .col-md-4
+    .panel.box
+      %span.fa-stack.fa-3x
+        %i.fa.fa-circle.fa-stack-2x
+        %i.fa.fa-question.fa-stack-1x.fa-inverse
+      .box-info
+        %h3
+          = "#{@pending_jobs.length}"
+        .text-muted
+          Pending Jobs
+  .col-md-4
+    .panel.box
+      %span.fa-stack.fa-3x
+        %i.fa.fa-circle.fa-stack-2x
+        %i.fa.fa-wrench.fa-stack-1x.fa-inverse
+      .box-info
+        %h3
+          = "#{@active_jobs.length}"
+        .text-muted
+          Active Jobs
+
+.row
+
+  .col-md-4
+    .panel.box
+      %span.fa-stack.fa-3x
+        %i.fa.fa-circle.fa-stack-2x
+        %i.fa.fa-check.fa-stack-1x.fa-inverse
+      .box-info
+        %h3
+          = "#{@completed_jobs.length}"
+        .text-muted
+          Completed Jobs
+  .col-md-4
+    .panel.box
+      %span.fa-stack.fa-3x
+        %i.fa.fa-circle.fa-stack-2x
+        %i.fa.fa-rocket.fa-stack-1x.fa-inverse
+      .box-info
+        %h3
+          = "#{number_to_currency(projected_revenue)}"
+        .text-muted
+          Projected Revenue
+  .col-md-4
+    .panel.box
+      %span.fa-stack.fa-3x
+        %i.fa.fa-circle.fa-stack-2x
+        %i.fa.fa-dollar.fa-stack-1x.fa-inverse
+      .box-info
+        %h3
+          = "#{number_to_currency(received_revenue)}"
+        .text-muted
+          Received Revenue
+
+.row
+  .col-md-12
     %p
       %h2.title
         Jobs

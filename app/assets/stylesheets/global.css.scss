@@ -47,3 +47,67 @@ body{
 .best_in_place{
   cursor: pointer;
 }
+
+.simple_form{
+  .control-group{
+    margin: 10px 0;
+  
+    &:first-child{
+      margin-top: 0;
+    }
+  }
+
+}
+
+.u-mt10{
+  margin-top: 10px;
+}
+
+.u-mt30{
+  margin-top: 30px;
+}
+
+.u-bt10{
+  margin-bottom: 10px;
+}
+
+.alert-chill{
+  background-color: #CFEEDC;
+  border-color: #61B082;
+  color: #61B082;
+}
+
+.new_item_detail{
+  display: none;
+}
+
+.alert{
+  border-radius: 0;
+  opacity: .5;
+}
+
+.send-invoice-wrap .edit_job{
+  display: none;
+}
+
+.box{
+  min-height: 120px;
+  padding: 25px;
+  border: 1px solid #aaa;
+
+  span{
+    float: left;
+    margin: 0px 10px 0 0;
+  }
+
+  h3{
+    font-size: 20px;
+  }
+}
+
+.alert-alert{
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+  color: #ffffff;
+}
+

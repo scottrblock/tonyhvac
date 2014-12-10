@@ -14,27 +14,57 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.navbar-brand{:href => "/"} Tony's HVAC
+          %a.navbar-brand{:href => "/"}
+            %i.fa.fa-home &nbsp;
+            Tony's HVAC
         .navbar-collapse.collapse
           %ul.nav.navbar-nav
             - if signed_in? && resource_type == "customers"
               %li
-                %a{:href => "/jobs/new"} New Job
+                %a{:href => "/jobs/new"} 
+                  New Job &nbsp;
+                  %i.fa.fa-plus-square
+              %li
+                %a{:href => "/update_resource"} 
+                  Update Profile &nbsp;
+                  %i.fa.fa-user
             - if signed_in? && resource_type == "contractors"
               %li
-                %a{:href => "/set_availability"} Set Availibility
+                %a{:href => "/set_availability"} 
+                  Set Availibility &nbsp;
+                  %i.fa.fa-calendar
               %li
-                %a{:href => "/update_resource"} Update Profile
+                %a{:href => "/update_resource"} 
+                  Update Profile &nbsp;
+                  %i.fa.fa-user
             - if signed_in? && resource_type == "admins"
               %li
-                %a{:href => "/show_contractors"} Contractor Info
+                %a{:href => "/show_contractors"} 
+                  Contractor Info &nbsp;
+                  %i.fa.fa-calendar
               %li
-                %a{:href => "/update_resource"} Update Profile
+                %a{:href => "/update_resource"} 
+                  Update Profile &nbsp;
+                  %i.fa.fa-user
+              %li.dropdown
+                %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                  Items
+                  %span.caret
+                %ul.dropdown-menu{:role => "menu"}
+                  %li
+                    %a{:href => "/items/"} 
+                      View and Update
+                      %i.fa.fa-cubes
+                  %li
+                    %a{:href => "/items/new"}
+                      New Item
+                      %i.fa.fa-plus
           %ul.nav.navbar-nav.navbar-right
             - if signed_in?
               %li
                 = link_to "/#{resource_type}/sign_out", :method => :delete do
-                  Sign Out
+                  Sign Out &nbsp;
+                  %i.fa.fa-sign-out
             - else
               %li.dropdown
                 %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}

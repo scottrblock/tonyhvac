@@ -9,7 +9,7 @@
           .form-group
             = f.label :custFirstName do
               First Name
-            = f.text_field :custFirstName, :class => "form-control"
+            = f.text_field :custFirstName, :class => "form-control", :required => true
           .form-group
             = f.label :custMiddleInitial do
               Middle Initial
@@ -17,7 +17,7 @@
           .form-group
             = f.label :custLastName do
               Last Name
-            = f.text_field :custLastName, :class => "form-control"
+            = f.text_field :custLastName, :class => "form-control", :required => true
 
   - if resource_name.to_s == "contractor"
     .row
@@ -26,7 +26,7 @@
           .form-group
             = f.label :subFirstName do
               First Name
-            = f.text_field :subFirstName, :class => "form-control"
+            = f.text_field :subFirstName, :class => "form-control", :required => true
           .form-group
             = f.label :subMiddleInitial do
               Middle Initial
@@ -34,70 +34,70 @@
           .form-group
             = f.label :subLastName do
               Last Name
-            = f.text_field :subLastName, :class => "form-control"
+            = f.text_field :subLastName, :class => "form-control", :required => true
   .form
     .row
       .col-md-6
         .form-group
           = f.label :email
-          = f.email_field :email, :class => "form-control"
+          = f.email_field :email, :class => "form-control", :required => true
         .form-group
           = f.label :password do
             Password
             %i
               (8 characters minimum)
-          = f.password_field :password, :autocomplete => "off", :class => "form-control"
+          = f.password_field :password, :autocomplete => "off", :class => "form-control", :required => true
         .form-group
           = f.label :password_confirmation
-          = f.password_field :password_confirmation, :class => "form-control"
+          = f.password_field :password_confirmation, :class => "form-control", :required => true
         - if resource_name.to_s == "customer"
           .form-group
             = f.label :custStreetAddress do
               Street Address
-            = f.text_field :custStreetAddress, :class => "form-control"
+            = f.text_field :custStreetAddress, :class => "form-control", :required => true
           .row
             .col-md-5
               .form-group
                 = f.label :custCity do
                   City
-                = f.text_field :custCity, :class => "form-control"
+                = f.text_field :custCity, :class => "form-control", :required => true
             .col-md-3
               .form-group
                 = f.label :custZip do
                   Zipcode
-                = f.text_field :custZip, :class => "form-control", :size => 5, :maxLength => 5
+                = f.text_field :custZip, :class => "form-control", :size => 5, :maxLength => 5, :required => true
             .col-md-4
               .form-group
                 = f.label :custState do
                   State
-                = select_tag :custState, options_for_select(us_states), :class => "form-control", :prompt => "Choose a state"
+                = select_tag :custState, options_for_select(us_states), :class => "form-control", :prompt => "Choose a state", :required => true
         - if resource_name.to_s == "contractor"
           .form-group
             = f.label :subtStreetAddress do
               Street Address
-            = f.text_field :subStreetAddress, :class => "form-control"
+            = f.text_field :subStreetAddress, :class => "form-control", :required => true
           .row
             .col-md-5
               .form-group
                 = f.label :subCity do
                   City
-                = f.text_field :subCity, :class => "form-control"
+                = f.text_field :subCity, :class => "form-control", :required => true
             .col-md-3
               .form-group
                 = f.label :subZip do
                   Zipcode
-                = f.text_field :subZip, :class => "form-control", :size => 5, :maxLength => 5
+                = f.text_field :subZip, :class => "form-control", :size => 5, :maxLength => 5, :required => true
             .col-md-4
               .form-group
                 = f.label :subState do
                   State
-                = f.select :subState, options_for_select(us_states), :class => "form-control", :prompt => "Choose a state"
+                = f.select :subState, options_for_select(us_states), :class => "form-control", :prompt => "Choose a state", :required => true
           .row
             .col-md-5
               .form-group
                 = f.label :subType do
                   Type
-                  = f.select :subType, [["Option 1", "Option 1"], ["Option 2", "Option 2"], ["Option 3", "Option 3"]], {:prompt => "Select a Type"}, {:class => "form-control"}
+                  = f.select :subType, [["Option 1", "Option 1"], ["Option 2", "Option 2"], ["Option 3", "Option 3"]], {:prompt => "Select a Type"}, {:class => "form-control", :required => true}
   
 
  

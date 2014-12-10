@@ -1,0 +1,12 @@
+= simple_form_for(@item_detail, :remote => true) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :item_id, collection: item_hash, prompt: "Choose an item...", input_html: {required: true}
+    = f.input :quantity, input_html: {required: true, value: 1}
+    = f.input :description, input_html: {required: true}
+    = f.input :job_id, as: :hidden, input_html: { value: @job.id}
+
+  .form-actions
+    = f.button :button, :class => "btn btn-default", :data => {:disable_with => "<i class='fa fa-spinner fa-spin'></i> Adding...".html_safe} do
+      Add Item to Job

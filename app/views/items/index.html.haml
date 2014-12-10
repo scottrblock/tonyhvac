@@ -1,0 +1,20 @@
+- if resource_type == "admins"
+
+  %h1 Listing items
+
+  %table.table-striped.table
+    %tr
+      %th Title
+      %th Price
+      %th
+      %th
+
+    - @items.each do |item|
+      %tr
+        %td= item.title
+        %td= number_to_currency(item.price)
+        %td= link_to 'Update', edit_item_path(item)
+
+  %br
+
+  = link_to 'New Item', new_item_path, :class => "btn btn-primary btn-sm"

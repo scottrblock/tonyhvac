@@ -15,22 +15,22 @@
                 = f.label :jobTitle, :class => "col-sm-3" do
                   Name
                 .col-sm-9
-                  = f.text_field :jobTitle, :class => "form-control"
+                  = f.text_field :jobTitle, :class => "form-control", :required => true
               .form-group
                 = f.label :jobDescription, :class => "col-sm-3" do
                   Description
                 .col-sm-9
-                  = f.text_area :jobDescription
+                  = f.text_area :jobDescription, :required => true
               .form-group
                 = f.label :jobType, :class => "col-sm-3" do
                   Category
                 .col-sm-9
-                  = f.select :jobType, [["Option 1", "Option 1"], ["Option 2", "Option 2"], ["Option 3", "Option 3"]], {:prompt => "Select a Category"}, {:class => "form-control"}
+                  = f.select :jobType, [["Option 1", "Option 1"], ["Option 2", "Option 2"], ["Option 3", "Option 3"]], {:prompt => "Select a Category"}, {:class => "form-control", :required => true}
               .form-group
                 = f.label :job_date, :class => "col-sm-3" do
                   Date
                 .col-sm-9
-                  = f.text_field :job_date, :as => :datetime_picker, :class => "datetimepicker form-control"
+                  = f.text_field :job_date, :as => :datetime_picker, :class => "datetimepicker form-control", :required => true
               .form-group
                 .col-sm-3
                   %label

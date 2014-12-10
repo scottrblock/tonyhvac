@@ -53,9 +53,23 @@
               - if !j.job_date.nil?
                 .row
                   .col-md-12
-                    %h5
-                      Started on
-                      = j.job_date.to_formatted_s(:custom_long_ordinal)
-                    %h5
-                      Ended on
-                      = j.jobEndDate.to_formatted_s(:custom_long_ordinal)
+                    .row
+                      .col-md-4
+                        .alert.alert-info
+                          Started on
+                          = j.job_date.to_formatted_s(:custom_long_ordinal)
+                    .row
+                      .col-md-4
+                        .alert.alert-info
+                          Ended on
+                          = j.jobEndDate.to_formatted_s(:custom_long_ordinal)
+                    .row
+                      .col-md-4
+                        - if j.invoice_status == "paid"
+                          .alert.alert-success
+                            = "Invoice paid at #{j.invoice_paid_time.to_formatted_s(:custom_long_ordinal)}"
+                .row
+                  .col-md-12
+                    .pull-right.u-bt10
+                      = link_to j, :class => "btn btn-primary" do
+                        View Invoice

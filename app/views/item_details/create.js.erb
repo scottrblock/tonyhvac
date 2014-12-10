@@ -1,0 +1,15 @@
+var $form = $('#new_item_detail')
+
+$(':input',$form)
+ .not(':button, :submit, :reset, :hidden')
+ .val('')
+ .removeAttr('checked')
+ .removeAttr('selected');
+
+$('.form-actions', $form).append('<div class="alert alert-chill pull-right">Item Added</div>');
+
+$(':input',$form).focus(function(){
+  $('.alert-chill').remove();
+});
+
+$('#job-table').html('<%= j render :partial => "jobs/item_table", :locals => {:j => @job} %>');

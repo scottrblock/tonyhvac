@@ -10,6 +10,16 @@ module ApplicationHelper
     contractors
   end
 
+  def item_hash
+    items = {}
+    Item.all.each do |i|
+      if i.title.length > 1
+        items[i.title] = i.id
+      end
+    end
+    items
+  end
+
   def current_resource
     current_resource = nil
 
@@ -95,5 +105,25 @@ module ApplicationHelper
         ['Wisconsin', 'WI'],
         ['Wyoming', 'WY']
       ]
+  end
+
+  def projected_revenue
+    r = 0.00
+    Job.all.each do |j|
+      r += j.post_tax_cost
+    end
+
+    r
+  end
+
+  def received_revenue
+    r = 0.00
+    Job.all.each do |j|
+      if j.invoice_status == "paid"
+        r += j.post_tax_cost
+      end
+    end
+
+    r
   end
 end
