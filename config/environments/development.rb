@@ -42,7 +42,7 @@ Rails.application.configure do
     authentication: "plain",
     enable_starttls_auto: true,
     user_name: 'scottrblock@gmail.com',
-    password: '$EdReed20!RayLewis52'
+    password: 'redacted'
 
   }
 
